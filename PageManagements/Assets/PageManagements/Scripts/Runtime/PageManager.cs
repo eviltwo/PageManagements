@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,6 +7,8 @@ namespace PageManagements
     public class PageManager
     {
         private List<PageBase> _pages = new List<PageBase>();
+
+        public event Action PageChanged;
 
         public void Push(PageBase page)
         {
@@ -23,6 +26,7 @@ namespace PageManagements
             }
 
             _pages.Add(page);
+            PageChanged?.Invoke();
         }
 
         public void Pop()
@@ -48,6 +52,12 @@ namespace PageManagements
 
             _pages.Remove(lastPage);
             lastPage.Dispose();
+            PageChanged?.Invoke();
+        }
+
+        public int GetPageCount()
+        {
+            return _pages.Count;
         }
 
         public bool HasPage<T>() where T : PageBase

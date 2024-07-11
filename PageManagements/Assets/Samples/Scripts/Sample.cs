@@ -11,6 +11,9 @@ public class Sample : MonoBehaviour
     [SerializeField]
     private PagePrefabReferences _pagePrefabReferences = null;
 
+    [SerializeField]
+    private GameObject _cover = null;
+
     private PageBuilder _builder;
     private PageManager _manager;
 
@@ -18,6 +21,7 @@ public class Sample : MonoBehaviour
     {
         _builder = new PageBuilder(_pageParent, _pagePrefabReferences);
         _manager = new PageManager();
+        _manager.PageChanged += OnPageChanged;
     }
 
     private void Update()
@@ -37,5 +41,10 @@ public class Sample : MonoBehaviour
         };
         var page = await _builder.BuildAsync<FirstPage>(arg, cancellationToken);
         _manager.Push(page);
+    }
+
+    private void OnPageChanged()
+    {
+        _cover.SetActive(_manager.GetPageCount() > 0);
     }
 }
