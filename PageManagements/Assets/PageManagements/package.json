@@ -1,0 +1,17 @@
+{
+    "name": "com.eviltwo.page-managements",
+    "displayName": "PageManagements",
+    "version": "1.0.0",
+    "unity": "2022.3",
+    "description": "Controls the display of Unity UI prefabs defined as pages.",
+    "author": {
+        "name": "DAIKI(eviltwo)",
+        "url": "https://github.com/eviltwo"
+    },
+
+    "keywords": [
+    ],
+
+    "dependencies": {
+    }
+}
