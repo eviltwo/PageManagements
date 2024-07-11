@@ -49,5 +49,18 @@ namespace PageManagements
             _pages.Remove(lastPage);
             lastPage.Dispose();
         }
+
+        public bool HasPage<T>() where T : PageBase
+        {
+            var pageCount = _pages.Count;
+            for (var i = 0; i < pageCount; i++)
+            {
+                if (_pages[i] is T)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
