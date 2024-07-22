@@ -3,6 +3,7 @@
 ## [1.2.1] - 2024-07-22
 ### Added
 - Added a generic button selection page.
+- Added a Create() function with a prefab name as an argument to the PageManager.
 
 ## [1.2.0] - 2024-07-22
 ### Changed

@@ -25,5 +25,18 @@ namespace PageManagements
             var go = Object.Instantiate(pagePrefab, _pageParent);
             return go.GetComponent<T>();
         }
+
+        internal T Build<T>(string name) where T : IPage
+        {
+            var pagePrefab = _pagePrefabReferences.GetPagePrefab<T>(name);
+            if (pagePrefab == null)
+            {
+                Debug.LogError($"Page prefab of type {typeof(T)} and name {name} not found.");
+                return default;
+            }
+
+            var go = Object.Instantiate(pagePrefab, _pageParent);
+            return go.GetComponent<T>();
+        }
     }
 }

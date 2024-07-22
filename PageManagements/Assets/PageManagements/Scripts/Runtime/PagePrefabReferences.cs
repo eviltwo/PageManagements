@@ -22,5 +22,20 @@ namespace PageManagements
 
             return null;
         }
+
+        public GameObject GetPagePrefab<T>(string name) where T : IPage
+        {
+            var count = _pagePrefabs.Length;
+            for (var i = 0; i < count; i++)
+            {
+                var prefab = _pagePrefabs[i];
+                if (prefab.name == name && prefab.TryGetComponent<T>(out _))
+                {
+                    return prefab;
+                }
+            }
+
+            return null;
+        }
     }
 }

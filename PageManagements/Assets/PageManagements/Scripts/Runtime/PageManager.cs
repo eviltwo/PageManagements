@@ -37,9 +37,18 @@ namespace PageManagements
             }
         }
 
-        public async UniTask<PageHandle<T>> Create<T>(CancellationToken cancellationToken) where T : IPage
+        public async UniTask<PageHandle<T>> Create<T>(CancellationToken cancellationToken)
+            where T : IPage
         {
             var page = _pageBuilder.Build<T>();
+            await Push(page, cancellationToken);
+            return new PageHandle<T>(page, this);
+        }
+
+        public async UniTask<PageHandle<T>> Create<T>(string pageName, CancellationToken cancellationToken)
+            where T : IPage
+        {
+            var page = _pageBuilder.Build<T>(pageName);
             await Push(page, cancellationToken);
             return new PageHandle<T>(page, this);
         }

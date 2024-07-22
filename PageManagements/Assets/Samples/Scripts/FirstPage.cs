@@ -54,7 +54,7 @@ public class FirstPage : MonoBehaviour, IPage
 
     private async UniTask OpenFoodSelectionPageAsync(CancellationToken cancellationToken)
     {
-        var pageHandle = await _pageManager.Create<MultipleButtonsPage>(cancellationToken);
+        var pageHandle = await _pageManager.Create<MultipleButtonsPage>("FoodSelectionPage", cancellationToken);
         pageHandle.Page.OnClickButton += key =>
         {
             switch (key)
