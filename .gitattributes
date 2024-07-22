@@ -2,4 +2,4 @@
 * text=auto
 
 # Ignore TMPro files for code language detection.
-src/PageManagements/Assets/TextMesh[[:space:]]Pro/** linguist-vendored
+PageManagements/Assets/TextMesh[[:space:]]Pro/** linguist-vendored
