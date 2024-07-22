@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.1] - 2024-07-22
+### Added
+- Added a generic button selection page.
+
 ## [1.2.0] - 2024-07-22
 ### Changed
 - Changed so that the Manager closes the Page.

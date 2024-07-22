@@ -15,3 +15,4 @@ MonoBehaviour:
   _pagePrefabs:
   - {fileID: 6671872196057447565, guid: 5a7786352e2192c46a02e629047eff60, type: 3}
   - {fileID: 6671872196057447565, guid: 07aa54c6ea9e13e48a4926c43619f029, type: 3}
+  - {fileID: 6671872196057447565, guid: 33c63d79e0568a14db87062401e3776b, type: 3}
