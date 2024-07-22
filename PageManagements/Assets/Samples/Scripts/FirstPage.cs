@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using PageManagements;
@@ -7,8 +6,7 @@ using UnityEngine;
 public class FirstPage : MonoBehaviour, IPage
 {
     private PageManager _pageManager;
-
-    public event Action OnCloseSelected;
+    private bool _shouldClose;
 
     public void Setup(PageManager pageManager)
     {
@@ -26,6 +24,8 @@ public class FirstPage : MonoBehaviour, IPage
         return UniTask.CompletedTask;
     }
 
+    public bool ShouldClose() => _shouldClose;
+
     public UniTask Hide(CancellationToken cancellationToken)
     {
         gameObject.SetActive(false);
@@ -37,17 +37,13 @@ public class FirstPage : MonoBehaviour, IPage
         OpenSecondPageAsync(destroyCancellationToken).Forget();
     }
 
-    private async UniTask OpenSecondPageAsync(CancellationToken cancellationToken)
+    private UniTask OpenSecondPageAsync(CancellationToken cancellationToken)
     {
-        var pageHandle = await _pageManager.Create<SecondPage>(cancellationToken);
-        pageHandle.Page.OnCloseSelected += () =>
-        {
-            pageHandle.Remove(destroyCancellationToken).Forget();
-        };
+        return _pageManager.Create<SecondPage>(cancellationToken);
     }
 
     public void OnClose()
     {
-        OnCloseSelected?.Invoke();
+        _shouldClose = true;
     }
 }

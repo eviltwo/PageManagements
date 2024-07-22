@@ -7,6 +7,7 @@ namespace PageManagements
     public interface IPage : IDisposable
     {
         UniTask Show(CancellationToken cancellationToken);
+        bool ShouldClose();
         UniTask Hide(CancellationToken cancellationToken);
     }
 }

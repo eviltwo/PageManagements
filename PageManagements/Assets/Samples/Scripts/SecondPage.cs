@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using PageManagements;
@@ -6,7 +5,7 @@ using UnityEngine;
 
 public class SecondPage : MonoBehaviour, IPage
 {
-    public event Action OnCloseSelected;
+    private bool _shouldClose;
 
     public void Dispose()
     {
@@ -19,6 +18,8 @@ public class SecondPage : MonoBehaviour, IPage
         return UniTask.CompletedTask;
     }
 
+    public bool ShouldClose() => _shouldClose;
+
     public UniTask Hide(CancellationToken cancellationToken)
     {
         gameObject.SetActive(false);
@@ -27,6 +28,6 @@ public class SecondPage : MonoBehaviour, IPage
 
     public void OnClose()
     {
-        OnCloseSelected?.Invoke();
+        _shouldClose = true;
     }
 }

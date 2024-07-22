@@ -25,6 +25,7 @@ public class Sample : MonoBehaviour
 
     private void Update()
     {
+        _manager.Update();
         if (Input.GetKeyDown(KeyCode.Space) && !_manager.HasPage<FirstPage>())
         {
             OpenPageAsync(destroyCancellationToken).Forget();
@@ -35,10 +36,6 @@ public class Sample : MonoBehaviour
     {
         var pageHandle = await _manager.Create<FirstPage>(cancellationToken);
         pageHandle.Page.Setup(_manager);
-        pageHandle.Page.OnCloseSelected += () =>
-        {
-            pageHandle.Remove(destroyCancellationToken).Forget();
-        };
     }
 
     private void OnPageChanged()

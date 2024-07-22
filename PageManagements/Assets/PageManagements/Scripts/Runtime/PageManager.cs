@@ -7,16 +7,34 @@ using UnityEngine;
 
 namespace PageManagements
 {
-    public class PageManager
+    public class PageManager : IDisposable
     {
         private readonly PageBuilder _pageBuilder;
         private readonly List<IPage> _pages = new List<IPage>();
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         public event Action PageChanged;
 
         public PageManager(PageBuilder pageBuilder)
         {
             _pageBuilder = pageBuilder;
+        }
+
+        public void Dispose()
+        {
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
+        }
+
+        public void Update()
+        {
+            for (var i = _pages.Count - 1; i >= 0; i--)
+            {
+                if (_pages[i].ShouldClose())
+                {
+                    Remove(i, _cancellationTokenSource.Token).Forget();
+                }
+            }
         }
 
         public async UniTask<PageHandle<T>> Create<T>(CancellationToken cancellationToken) where T : IPage
