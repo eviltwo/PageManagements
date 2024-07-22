@@ -1,5 +1,3 @@
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace PageManagements
@@ -15,18 +13,17 @@ namespace PageManagements
             _pagePrefabReferences = pagePrefabReferences;
         }
 
-        public async UniTask<T> BuildAsync<T>(PageArgument arg, CancellationToken cancellationToken) where T : PageBase
+        internal T Build<T>() where T : IPage
         {
             var pagePrefab = _pagePrefabReferences.GetPagePrefab<T>();
             if (pagePrefab == null)
             {
                 Debug.LogError($"Page prefab of type {typeof(T)} not found.");
-                return null;
+                return default;
             }
 
-            var page = Object.Instantiate(pagePrefab, _pageParent);
-            await page.Initialize(arg, cancellationToken);
-            return page;
+            var go = Object.Instantiate(pagePrefab, _pageParent);
+            return go.GetComponent<T>();
         }
     }
 }

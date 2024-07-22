@@ -1,36 +1,53 @@
+using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using PageManagements;
+using UnityEngine;
 
-public class FirstPage : PageBase
+public class FirstPage : MonoBehaviour, IPage
 {
-    public override void Dispose()
+    private PageManager _pageManager;
+
+    public event Action OnCloseSelected;
+
+    public void Setup(PageManager pageManager)
+    {
+        _pageManager = pageManager;
+    }
+
+    public void Dispose()
     {
         Destroy(gameObject);
     }
 
-    public override void Show()
+    public UniTask Show(CancellationToken cancellationToken)
     {
         gameObject.SetActive(true);
+        return UniTask.CompletedTask;
     }
 
-    public override void Hide()
+    public UniTask Hide(CancellationToken cancellationToken)
     {
         gameObject.SetActive(false);
+        return UniTask.CompletedTask;
     }
 
     public void OnOpenSecondPage()
     {
-        OpenSecondPageAsync().Forget();
+        OpenSecondPageAsync(destroyCancellationToken).Forget();
     }
 
-    private async UniTask OpenSecondPageAsync()
+    private async UniTask OpenSecondPageAsync(CancellationToken cancellationToken)
     {
-        var page = await PageArg.PageBuilder.BuildAsync<SecondPage>(PageArg, destroyCancellationToken);
-        PageArg.PageManager.Push(page);
+        var pageHandle = await _pageManager.Create<SecondPage>(cancellationToken);
+        pageHandle.Page.OnCloseSelected += () =>
+        {
+            pageHandle.Remove(destroyCancellationToken).Forget();
+        };
     }
 
     public void OnClose()
     {
-        PageArg.PageManager.Pop();
+        OnCloseSelected?.Invoke();
     }
 }

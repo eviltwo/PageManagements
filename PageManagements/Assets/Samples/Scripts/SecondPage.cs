@@ -1,24 +1,32 @@
+using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using PageManagements;
+using UnityEngine;
 
-public class SecondPage : PageBase
+public class SecondPage : MonoBehaviour, IPage
 {
-    public override void Dispose()
+    public event Action OnCloseSelected;
+
+    public void Dispose()
     {
         Destroy(gameObject);
     }
 
-    public override void Show()
+    public UniTask Show(CancellationToken cancellationToken)
     {
         gameObject.SetActive(true);
+        return UniTask.CompletedTask;
     }
 
-    public override void Hide()
+    public UniTask Hide(CancellationToken cancellationToken)
     {
         gameObject.SetActive(false);
+        return UniTask.CompletedTask;
     }
 
     public void OnClose()
     {
-        PageArg.PageManager.Pop();
+        OnCloseSelected?.Invoke();
     }
 }

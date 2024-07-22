@@ -6,15 +6,17 @@ namespace PageManagements
     public class PagePrefabReferences : ScriptableObject
     {
         [SerializeField]
-        private PageBase[] _pagePrefabs = null;
+        private GameObject[] _pagePrefabs = null;
 
-        public T GetPagePrefab<T>() where T : PageBase
+        public GameObject GetPagePrefab<T>() where T : IPage
         {
-            foreach (var page in _pagePrefabs)
+            var count = _pagePrefabs.Length;
+            for (var i = 0; i < count; i++)
             {
-                if (page is T tPage)
+                var prefab = _pagePrefabs[i];
+                if (prefab.TryGetComponent<T>(out _))
                 {
-                    return tPage;
+                    return prefab;
                 }
             }
 

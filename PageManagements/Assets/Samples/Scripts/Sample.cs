@@ -14,13 +14,12 @@ public class Sample : MonoBehaviour
     [SerializeField]
     private GameObject _cover = null;
 
-    private PageBuilder _builder;
     private PageManager _manager;
 
     private void Start()
     {
-        _builder = new PageBuilder(_pageParent, _pagePrefabReferences);
-        _manager = new PageManager();
+        var builder = new PageBuilder(_pageParent, _pagePrefabReferences);
+        _manager = new PageManager(builder);
         _manager.PageChanged += OnPageChanged;
     }
 
@@ -34,13 +33,12 @@ public class Sample : MonoBehaviour
 
     private async UniTask OpenPageAsync(CancellationToken cancellationToken)
     {
-        var arg = new PageArgument
+        var pageHandle = await _manager.Create<FirstPage>(cancellationToken);
+        pageHandle.Page.Setup(_manager);
+        pageHandle.Page.OnCloseSelected += () =>
         {
-            PageBuilder = _builder,
-            PageManager = _manager,
+            pageHandle.Remove(destroyCancellationToken).Forget();
         };
-        var page = await _builder.BuildAsync<FirstPage>(arg, cancellationToken);
-        _manager.Push(page);
     }
 
     private void OnPageChanged()
