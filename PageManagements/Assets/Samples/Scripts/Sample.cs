@@ -23,6 +23,11 @@ public class Sample : MonoBehaviour
         _manager.PageChanged += OnPageChanged;
     }
 
+    private void OnDestroy()
+    {
+        _manager.Dispose();
+    }
+
     private void Update()
     {
         _manager.Update();
