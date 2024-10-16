@@ -9,11 +9,12 @@ public class SecondPage : MonoBehaviour, IPage
 
     public void Dispose()
     {
-        Destroy(gameObject);
+        Debug.Log("SecondPage.Dispose");
     }
 
     public UniTask Show(CancellationToken cancellationToken)
     {
+        Debug.Log("SecondPage.Show");
         gameObject.SetActive(true);
         return UniTask.CompletedTask;
     }
@@ -22,6 +23,7 @@ public class SecondPage : MonoBehaviour, IPage
 
     public UniTask Hide(CancellationToken cancellationToken)
     {
+        Debug.Log("SecondPage.Hide");
         gameObject.SetActive(false);
         return UniTask.CompletedTask;
     }

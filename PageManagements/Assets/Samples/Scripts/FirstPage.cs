@@ -21,7 +21,6 @@ public class FirstPage : MonoBehaviour, IPage
     public void Dispose()
     {
         Debug.Log("FirstPage.Dispose");
-        Destroy(gameObject);
     }
 
     public UniTask Show(CancellationToken cancellationToken)

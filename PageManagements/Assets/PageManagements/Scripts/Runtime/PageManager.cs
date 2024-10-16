@@ -24,7 +24,12 @@ namespace PageManagements
         {
             for (var i = _pages.Count - 1; i >= 0; i--)
             {
-                _pages[i].Dispose();
+                var page = _pages[i];
+                page.Dispose();
+                if (page != null)
+                {
+                    UnityEngine.Object.Destroy(page as MonoBehaviour);
+                }
             }
             _pages.Clear();
 
@@ -99,6 +104,10 @@ namespace PageManagements
             // Switch page animation
             await page.Hide(cancellationToken);
             page.Dispose();
+            if (page != null)
+            {
+                UnityEngine.Object.Destroy(page as MonoBehaviour);
+            }
             if (isLastPage && _pages.Count > 0)
             {
                 var prevPage = _pages.Last();

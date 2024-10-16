@@ -3,6 +3,7 @@
 ## [1.2.2] - 2024-10-16
 ### Changed
 - Dispose all pages when disposing of the manager.
+- Manager destroys each page.
 
 ## [1.2.1] - 2024-07-22
 ### Added
