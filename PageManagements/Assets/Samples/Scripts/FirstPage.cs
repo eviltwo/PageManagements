@@ -20,11 +20,13 @@ public class FirstPage : MonoBehaviour, IPage
 
     public void Dispose()
     {
+        Debug.Log("FirstPage.Dispose");
         Destroy(gameObject);
     }
 
     public UniTask Show(CancellationToken cancellationToken)
     {
+        Debug.Log("FirstPage.Show");
         gameObject.SetActive(true);
         return UniTask.CompletedTask;
     }
@@ -33,6 +35,7 @@ public class FirstPage : MonoBehaviour, IPage
 
     public UniTask Hide(CancellationToken cancellationToken)
     {
+        Debug.Log("FirstPage.Hide");
         gameObject.SetActive(false);
         return UniTask.CompletedTask;
     }

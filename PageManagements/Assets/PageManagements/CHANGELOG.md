@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.2] - 2024-10-16
+### Changed
+- Dispose all pages when disposing of the manager.
+
 ## [1.2.1] - 2024-07-22
 ### Added
 - Added a generic button selection page.

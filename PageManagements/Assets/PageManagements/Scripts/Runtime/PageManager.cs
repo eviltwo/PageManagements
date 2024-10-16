@@ -22,6 +22,12 @@ namespace PageManagements
 
         public void Dispose()
         {
+            for (var i = _pages.Count - 1; i >= 0; i--)
+            {
+                _pages[i].Dispose();
+            }
+            _pages.Clear();
+
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource.Dispose();
         }
