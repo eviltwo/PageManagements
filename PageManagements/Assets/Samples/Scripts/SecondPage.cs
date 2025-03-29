@@ -7,6 +7,8 @@ public class SecondPage : MonoBehaviour, IPage
 {
     private bool _shouldClose;
 
+    public bool IsKeepPreviousPage => false;
+
     public void Dispose()
     {
         Debug.Log("SecondPage.Dispose");
