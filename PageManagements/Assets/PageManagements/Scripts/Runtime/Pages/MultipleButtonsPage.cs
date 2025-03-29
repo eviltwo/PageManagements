@@ -15,6 +15,8 @@ namespace PageManagements.Pages
         /// </summary>
         public event Action<string> OnClickButton;
 
+        public bool IsKeepPreviousPage => true;
+
         public void Dispose()
         {
             Destroy(gameObject);

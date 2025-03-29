@@ -70,7 +70,7 @@ namespace PageManagements
             _pages.Add(page);
             PageChanged?.Invoke();
             // Switch page animation
-            if (oldPage != null)
+            if (!page.IsKeepPreviousPage && oldPage != null)
             {
                 await oldPage.Hide(cancellationToken);
             }
@@ -103,12 +103,13 @@ namespace PageManagements
 
             // Switch page animation
             await page.Hide(cancellationToken);
+            var isKeepPreviousPage = page.IsKeepPreviousPage;
             page.Dispose();
             if (page != null)
             {
                 UnityEngine.Object.Destroy(page as MonoBehaviour);
             }
-            if (isLastPage && _pages.Count > 0)
+            if (isLastPage && !isKeepPreviousPage && _pages.Count > 0)
             {
                 var prevPage = _pages.Last();
                 await prevPage.Show(cancellationToken);

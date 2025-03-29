@@ -13,6 +13,8 @@ public class FirstPage : MonoBehaviour, IPage
     private PageManager _pageManager;
     private bool _shouldClose;
 
+    public bool IsKeepPreviousPage => false;
+
     public void Setup(PageManager pageManager)
     {
         _pageManager = pageManager;

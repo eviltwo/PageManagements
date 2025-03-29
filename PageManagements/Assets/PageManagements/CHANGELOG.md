@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.3] - Development
+### Changed
+- Changed so that a new page can be created while keeping the previous page displayed.
+  - The `Page` class is required to implement `IsKeepPreviousPage`.
+
 ## [1.2.2] - 2024-10-16
 ### Changed
 - Dispose all pages when disposing of the manager.
