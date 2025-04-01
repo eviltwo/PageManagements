@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.2.3] - Development
+## [1.2.3] - 2025-04-02
 ### Changed
 - Changed so that a new page can be created while keeping the previous page displayed.
   - The `Page` class is required to implement `IsKeepPreviousPage`.
