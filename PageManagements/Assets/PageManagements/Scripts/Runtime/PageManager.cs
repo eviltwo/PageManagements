@@ -138,5 +138,21 @@ namespace PageManagements
             }
             return false;
         }
+
+        public bool TryGetPage<T>(out T page) where T : IPage
+        {
+            var pageCount = _pages.Count;
+            for (var i = 0; i < pageCount; i++)
+            {
+                if (_pages[i] is T foundPage)
+                {
+                    page = foundPage;
+                    return true;
+                }
+            }
+
+            page = default;
+            return false;
+        }
     }
 }
